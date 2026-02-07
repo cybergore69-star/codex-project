@@ -1,44 +1,74 @@
-window.INSIGHTS = [
-  {
+window.INSIGHTS = [  {
     id: "gen-z-future-work",
     title: "Generasi Z dan Masa Depan Dunia Pekerjaan",
     image: "assets/genz.jpg",
     tags: ["Society", "Future of Work", "Generation Z"],
     excerpt:
-      "Generasi Z sedang membentuk semula makna pekerjaan — daripada kestabilan kepada fleksibiliti, daripada hierarki kepada autonomi. Cara kita memahami generasi ini hari ini akan menentukan arah dunia kerja masa depan.",
+      "Generasi Z sedang membentuk semula makna pekerjaan — daripada kestabilan kepada fleksibiliti, daripada hierarki kepada autonomi.",
     body: [
-      "Generasi Z dan Masa Depan Dunia Pekerjaan",
+      "## Siapakah Generasi Z",
 
-      "Siapakah Generasi Z",
-      "Generasi Z merujuk kepada golongan yang lahir sekitar akhir 1990-an hingga awal 2010-an. Mereka membesar dalam persekitaran digital sepenuhnya, di mana Internet, telefon pintar dan media sosial menjadi sebahagian daripada kehidupan harian. Teknologi bagi generasi ini bukan satu kelebihan tambahan, tetapi satu keperluan asas untuk belajar, bekerja dan berkomunikasi.",
+      "Generasi Z merujuk kepada golongan yang lahir sekitar akhir 1990-an hingga awal 2010-an. Mereka ialah **generasi digital-native** — membesar ketika Internet, telefon pintar dan media sosial sudah menjadi norma kehidupan.",
 
-      "Kebangkitan Suara Anak Muda di Rantau Asia",
-      "Dalam beberapa tahun kebelakangan ini, suara Generasi Z semakin ketara di ruang awam. Peristiwa kebangkitan pelajar dan golongan muda di negara seperti Nepal dan Indonesia mencerminkan keresahan terhadap isu politik, keadaan ekonomi dan perubahan iklim. Fenomena ini menunjukkan bahawa Generasi Z bukan sekadar generasi yang menyesuaikan diri dengan dunia sedia ada, tetapi generasi yang berani mempersoalkan hala tuju masa depan yang mereka warisi.",
+      "Teknologi bagi mereka bukan kelebihan. Ia adalah asas untuk belajar, bekerja dan berkomunikasi.",
 
-      "Cara Generasi Z Melihat Dunia Kerja",
-      "Generasi Z melihat pekerjaan secara berbeza berbanding generasi terdahulu. Mereka lebih menghargai fleksibiliti, autonomi dan makna dalam kerjaya. Kerja gig, kerja jarak jauh dan model pekerjaan hibrid semakin diterima kerana ia selari dengan keinginan untuk keseimbangan hidup dan kesihatan mental. Pendapatan kekal penting, namun nilai dan persekitaran kerja juga memainkan peranan besar dalam membuat keputusan kerjaya.",
+      "## Kebangkitan Suara Anak Muda",
 
-      "Cabaran Ekonomi dan Ketidaktentuan Masa Depan",
-      "Generasi Z memasuki alam dewasa dalam keadaan ekonomi yang tidak menentu. Kos sara hidup yang meningkat, peluang pekerjaan yang semakin kompetitif serta kebimbangan terhadap kesan kecerdasan buatan terhadap pasaran kerja menambah tekanan kepada golongan muda. Pada masa yang sama, harga hartanah yang tinggi menjadikan pemilikan rumah satu cabaran besar bagi ramai dalam generasi ini.",
+      "Dalam beberapa tahun kebelakangan ini, suara Generasi Z semakin ketara di ruang awam.",
 
-      "Generasi Z sebagai Kuasa Pengguna Baharu",
-      "Walaupun berdepan pelbagai cabaran, Generasi Z muncul sebagai kuasa pengguna yang semakin berpengaruh. Mereka lebih berhati-hati dalam berbelanja, sensitif terhadap harga dan menilai sesuatu produk berdasarkan nilai sebenar. Kesetiaan terhadap jenama tidak lagi bergantung kepada nama besar atau sejarah panjang, tetapi kepada keaslian, ketelusan dan kesesuaian dengan gaya hidup mereka.",
+      "Daripada protes pelajar hingga gerakan iklim, generasi ini menunjukkan bahawa mereka bukan sekadar pewaris masa depan — tetapi **aktif membentuknya**.",
 
-      "Kepelbagaian dalam Kalangan Generasi Z",
-      "Penting untuk difahami bahawa Generasi Z bukan satu kumpulan yang seragam. Latar belakang ekonomi, lokasi geografi dan akses kepada peluang membentuk pengalaman hidup yang berbeza. Ada yang berfikiran global dan bercita-cita tinggi, ada juga yang lebih menumpukan kepada kestabilan dan keperluan asas. Namun begitu, mereka berkongsi ruang digital yang sama dan dipengaruhi oleh aliran maklumat yang pantas dan terbuka.",
+      "## Cara Generasi Z Melihat Dunia Kerja",
 
-      "Kepercayaan, Komuniti dan Media Digital",
-      "Generasi Z lebih cenderung mempercayai cadangan rakan sebaya dan komuniti dalam talian berbanding autoriti tradisional. Media digital menjadi medium utama untuk mencari maklumat dan membentuk pandangan. Kepercayaan dibina melalui kejujuran, interaksi dan relevansi, bukan melalui hierarki atau status semata-mata.",
+      "Berbanding generasi terdahulu, Generasi Z lebih menghargai **fleksibiliti, autonomi dan makna** dalam kerjaya.",
 
-      "Implikasi kepada Organisasi dan Pembuat Dasar",
-      "Kehadiran Generasi Z menuntut perubahan dalam cara organisasi dan institusi beroperasi. Model kerja yang terlalu kaku semakin kurang relevan. Pelaburan dalam pendidikan, latihan kemahiran dan persekitaran kerja yang lebih fleksibel menjadi keperluan untuk menarik dan mengekalkan bakat muda dalam jangka panjang.",
+      "Kerja bukan lagi sekadar sumber pendapatan. Ia mesti selari dengan nilai hidup dan kesejahteraan mental.",
 
-      "Kesimpulan",
-      "Generasi Z bukan sekadar tenaga kerja baharu, tetapi agen perubahan dalam ekonomi dan masyarakat. Cara kita memahami, melibatkan dan bekerjasama dengan generasi ini hari ini akan menentukan arah dunia pekerjaan pada masa hadapan. Dalam dunia yang penuh ketidaktentuan, Generasi Z membawa cabaran besar, namun juga potensi yang tidak boleh diabaikan.",
+      "Model kerja gig, remote dan hybrid semakin diterima kerana memberi mereka kawalan terhadap masa dan tenaga.",
 
-      "⸻",
+      "## Cabaran Ekonomi yang Nyata",
 
-      "Jika artikel ini membuatkan anda berfikir tentang perubahan dunia kerja dan generasi masa depan, terokai tulisan lain di laman ini untuk perspektif dan renungan yang lebih mendalam."
+      "Namun realitinya tidak mudah.",
+
+      "Kos sara hidup meningkat. Pasaran kerja semakin kompetitif. Ditambah pula dengan kebangkitan AI yang mencetuskan persoalan tentang masa depan pekerjaan.",
+
+      "Bagi ramai, memiliki rumah kini terasa seperti sasaran yang semakin jauh.",
+
+      "## Generasi Z sebagai Kuasa Pengguna",
+
+      "Walaupun berdepan tekanan ekonomi, Generasi Z muncul sebagai **kuasa pengguna baharu**.",
+
+      "Mereka tidak mudah terpengaruh dengan jenama besar. Sebaliknya, mereka mencari keaslian, ketelusan dan nilai sebenar.",
+
+      "Kesetiaan tidak dibeli melalui pemasaran — ia diperoleh melalui kepercayaan.",
+
+      "## Tidak Semua Generasi Z Itu Sama",
+
+      "Penting untuk difahami bahawa Generasi Z bukan kumpulan homogen.",
+
+      "Latar belakang ekonomi, geografi dan akses peluang mencipta realiti hidup yang berbeza.",
+
+      "Namun mereka berkongsi satu persamaan besar — hidup dalam aliran maklumat yang pantas.",
+
+      "## Implikasi Kepada Organisasi",
+
+      "Kehadiran generasi ini memaksa organisasi menilai semula cara mereka beroperasi.",
+
+      "Model kerja terlalu rigid semakin kurang relevan.",
+
+      "Organisasi yang gagal beradaptasi mungkin bukan sahaja kehilangan bakat — tetapi masa depan.",
+
+      "## Kesimpulan",
+
+      "Generasi Z bukan sekadar tenaga kerja baharu.",
+
+      "Mereka adalah **agen perubahan**.",
+
+      "Cara kita memahami dan bekerjasama dengan generasi ini hari ini akan menentukan bentuk dunia pekerjaan esok.",
+
+      "---",
+
+      "Jika tulisan ini membuatkan anda berfikir, terokai artikel lain di Rebel Insight untuk perspektif yang lebih mendalam."
     ]
   },
     {

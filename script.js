@@ -12,10 +12,43 @@ const insightList = document.getElementById("insight-list");
 
 const scrollButtons = document.querySelectorAll("[data-scroll]");
 
+const parseMarkdown = (text) => {
+  if (!text) return "";
+  if (text.startsWith("### ")) {
+    return `<h3>${text.slice(4)}</h3>`;
+  }
+  if (text.startsWith("## ")) {
+    return `<h2>${text.slice(3)}</h2>`;
+  }
+  const strongText = text.replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>");
+  return `<p>${strongText}</p>`;
+};
+
 const renderFeatured = (insight) => {
   featuredTags.textContent = insight.tags.join(" · ");
   featuredTitle.textContent = insight.title;
   featuredExcerpt.textContent = insight.excerpt;
+  const descriptionMeta = document.querySelector("meta[name=\"description\"]");
+  const ogTitleMeta = document.querySelector("meta[property=\"og:title\"]");
+  const ogDescriptionMeta = document.querySelector("meta[property=\"og:description\"]");
+  const ogImageMeta = document.querySelector("meta[property=\"og:image\"]");
+  if (descriptionMeta) {
+    descriptionMeta.setAttribute("content", insight.excerpt);
+  }
+  if (ogTitleMeta) {
+    ogTitleMeta.setAttribute("content", insight.title);
+  }
+  if (ogDescriptionMeta) {
+    ogDescriptionMeta.setAttribute("content", insight.excerpt);
+  }
+  if (ogImageMeta) {
+    if (insight.image) {
+      ogImageMeta.setAttribute("content", insight.image);
+    } else {
+      ogImageMeta.setAttribute("content", "");
+    }
+  }
+
   if (insight.image) {
     featuredImage.src = insight.image;
     featuredImage.alt = insight.title;
@@ -24,7 +57,7 @@ const renderFeatured = (insight) => {
     featuredImage.removeAttribute("src");
     featuredImage.classList.add("is-hidden");
   }
-  featuredBody.innerHTML = insight.body.map((paragraph) => `<p>${paragraph}</p>`).join("");
+  featuredBody.innerHTML = insight.body.map((paragraph) => parseMarkdown(paragraph)).join("");
   featuredCta.dataset.state = "collapsed";
   featuredBody.classList.add("is-hidden");
 };
