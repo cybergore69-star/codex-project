@@ -25,31 +25,29 @@ const parseMarkdown = (text) => {
   return `<p>${strongText}</p>`;
 };
 
+function updateMetaTags(insight) {
+
+  const setMeta = (property, content) => {
+    let el = document.querySelector(`meta[property="${property}"]`);
+    if (!el) {
+      el = document.createElement("meta");
+      el.setAttribute("property", property);
+      document.head.appendChild(el);
+    }
+    el.setAttribute("content", content);
+  };
+
+  setMeta("og:title", insight.title);
+  setMeta("og:description", insight.excerpt);
+  setMeta("og:image", insight.image || "assets/default.jpg");
+  setMeta("og:url", window.location.href);
+}
+
 const renderFeatured = (insight) => {
   featuredTags.textContent = insight.tags.join(" · ");
   featuredTitle.textContent = insight.title;
   featuredExcerpt.textContent = insight.excerpt;
-  const descriptionMeta = document.querySelector("meta[name=\"description\"]");
-  const ogTitleMeta = document.querySelector("meta[property=\"og:title\"]");
-  const ogDescriptionMeta = document.querySelector("meta[property=\"og:description\"]");
-  const ogImageMeta = document.querySelector("meta[property=\"og:image\"]");
-  if (descriptionMeta) {
-    descriptionMeta.setAttribute("content", insight.excerpt);
-  }
-  if (ogTitleMeta) {
-    ogTitleMeta.setAttribute("content", insight.title);
-  }
-  if (ogDescriptionMeta) {
-    ogDescriptionMeta.setAttribute("content", insight.excerpt);
-  }
-    if (ogImageMeta) {
-    if (insight.image) {
-      const absoluteImageUrl = new URL(insight.image, window.location.origin).toString();
-      ogImageMeta.setAttribute("content", absoluteImageUrl);
-    } else {
-      ogImageMeta.setAttribute("content", "");
-    }
-  }
+  updateMetaTags(insight);
 
   if (insight.image) {
     featuredImage.src = insight.image;
