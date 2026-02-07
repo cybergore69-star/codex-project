@@ -286,3 +286,51 @@ footer {
     align-items: flex-start;
   }
 }
+
+.panel-list {
+  margin-top: 28px;
+  display: grid;
+  gap: 12px;
+}
+
+.panel-subtitle {
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 1.6rem;
+  letter-spacing: 0.06em;
+}
+
+.insight-list {
+  display: grid;
+  gap: 10px;
+}
+
+.insight-item {
+  display: grid;
+  gap: 4px;
+  text-align: left;
+  border: 2px solid var(--white);
+  padding: 12px 14px;
+  background: #101010;
+  color: var(--white);
+}
+
+.insight-title {
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.insight-tags {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--neon);
+}
+
+.article-body {
+  display: grid;
+  gap: 12px;
+}
+
+.is-hidden {
+  display: none;
+}
