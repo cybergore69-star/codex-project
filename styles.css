@@ -334,3 +334,17 @@ footer {
 .is-hidden {
   display: none;
 }
+
+.article-cover {
+  width: 100%;
+  max-height: 320px;
+  object-fit: cover;
+  border-radius: 14px;
+  margin: 18px 0;
+}
+
+@media (max-width: 720px) {
+  .article-cover {
+    max-height: 220px;
+  }
+}
