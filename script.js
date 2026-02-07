@@ -75,10 +75,31 @@ const renderList = (insights) => {
     .join("");
 };
 
+const updateInsightQuery = (id) => {
+  try {
+    const url = new URL(window.location.href);
+    url.searchParams.set("insight", id);
+    window.history.replaceState({}, "", url);
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+const getInsightFromQuery = () => {
+  try {
+    const url = new URL(window.location.href);
+    return url.searchParams.get("insight");
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};
+
 const setFeaturedById = (id) => {
   const insight = INSIGHTS.find((item) => item.id === id);
   if (!insight) return;
   renderFeatured(insight);
+  updateInsightQuery(insight.id);
 };
 
 featuredCta.addEventListener("click", () => {
@@ -113,5 +134,12 @@ scrollButtons.forEach((button) => {
   });
 });
 
-renderFeatured(INSIGHTS[0]);
+const initialInsightId = getInsightFromQuery();
+const initialInsight = initialInsightId
+  ? INSIGHTS.find((item) => item.id === initialInsightId)
+  : null;
+renderFeatured(initialInsight || INSIGHTS[0]);
+if (initialInsight) {
+  updateInsightQuery(initialInsight.id);
+}
 renderList(INSIGHTS);
