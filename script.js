@@ -8,6 +8,7 @@ const featuredExcerpt = document.getElementById("featured-excerpt");
 const featuredBody = document.getElementById("featured-body");
 const featuredImage = document.getElementById("featured-image");
 const featuredCta = document.getElementById("featured-cta");
+const featuredShare = document.getElementById("featured-share");
 const insightList = document.getElementById("insight-list");
 
 const scrollButtons = document.querySelectorAll("[data-scroll]");
@@ -143,3 +144,22 @@ if (initialInsight) {
   updateInsightQuery(initialInsight.id);
 }
 renderList(INSIGHTS);
+
+if (featuredShare) {
+  featuredShare.addEventListener("click", async () => {
+    const url = window.location.href;
+    try {
+      if (navigator.share) {
+        await navigator.share({
+          title: featuredTitle.textContent || document.title,
+          text: featuredExcerpt.textContent || "",
+          url,
+        });
+      } else {
+        window.prompt("Copy this link", url);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  });
+}
