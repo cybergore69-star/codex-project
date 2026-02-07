@@ -42,9 +42,10 @@ const renderFeatured = (insight) => {
   if (ogDescriptionMeta) {
     ogDescriptionMeta.setAttribute("content", insight.excerpt);
   }
-  if (ogImageMeta) {
+    if (ogImageMeta) {
     if (insight.image) {
-      ogImageMeta.setAttribute("content", insight.image);
+      const absoluteImageUrl = new URL(insight.image, window.location.origin).toString();
+      ogImageMeta.setAttribute("content", absoluteImageUrl);
     } else {
       ogImageMeta.setAttribute("content", "");
     }
