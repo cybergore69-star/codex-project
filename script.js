@@ -1,7 +1,7 @@
 const INSIGHTS = [
     {
     id: "ai-adaptif-01",
-    title: "AI Takkan Ganti Software Engineer — Tapi Engineer Yang Guna AI Akan Ganti Yang Tak Guna",
+    title: "AI Takkan Ganti Software Engineer — Tapi Engineer Yang Guna AI Akan Ganti Mereka Yang Enggan Guna AI",
     tags: ["AI", "Strategy", "Future"],
     excerpt:
       "Setiap kali teknologi baru muncul, soalan yang sama akan timbul. Adakah mesin akan menggantikan manusia? Mungkin itu sebenarnya soalan yang salah.",
