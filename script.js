@@ -2,6 +2,7 @@ if (!window.INSIGHTS || !Array.isArray(window.INSIGHTS)) {
   console.error("INSIGHTS missing");
 }
 
+const INSIGHTS = window.INSIGHTS || [];
 const featuredTags = document.getElementById("featured-tags");
 const featuredTitle = document.getElementById("featured-title");
 const featuredExcerpt = document.getElementById("featured-excerpt");
@@ -12,6 +13,23 @@ const featuredShare = document.getElementById("featured-share");
 const insightList = document.getElementById("insight-list");
 
 const scrollButtons = document.querySelectorAll("[data-scroll]");
+const bodyInsightId = document.body.dataset.insightId || null;
+const pageAssetPrefix = bodyInsightId ? "../" : "";
+let currentInsightId = null;
+
+const toPageAssetPath = (assetPath) => {
+  if (!assetPath) return "";
+  if (assetPath.startsWith("http://") || assetPath.startsWith("https://") || assetPath.startsWith("/")) {
+    return assetPath;
+  }
+  return `${pageAssetPrefix}${assetPath}`;
+};
+
+const toAbsoluteAssetUrl = (assetPath) => {
+  const relativePath = assetPath || "assets/default.jpg";
+  const normalized = relativePath.replace(/^\.\//, "").replace(/^\//, "");
+  return `${window.location.origin}/${normalized}`;
+};
 
 const parseMarkdown = (text) => {
   if (!text) return "";
@@ -26,7 +44,6 @@ const parseMarkdown = (text) => {
 };
 
 function updateMetaTags(insight) {
-
   const setMeta = (property, content) => {
     let el = document.querySelector(`meta[property="${property}"]`);
     if (!el) {
@@ -37,20 +54,23 @@ function updateMetaTags(insight) {
     el.setAttribute("content", content);
   };
 
+  const shareUrl = `${window.location.origin}/p/${insight.id}.html`;
+  setMeta("og:type", "article");
   setMeta("og:title", insight.title);
   setMeta("og:description", insight.excerpt);
-  setMeta("og:image", insight.image || "assets/default.jpg");
-  setMeta("og:url", window.location.href);
+  setMeta("og:image", toAbsoluteAssetUrl(insight.image));
+  setMeta("og:url", shareUrl);
 }
 
 const renderFeatured = (insight) => {
+  currentInsightId = insight.id;
   featuredTags.textContent = insight.tags.join(" · ");
   featuredTitle.textContent = insight.title;
   featuredExcerpt.textContent = insight.excerpt;
   updateMetaTags(insight);
 
   if (insight.image) {
-    featuredImage.src = insight.image;
+    featuredImage.src = toPageAssetPath(insight.image);
     featuredImage.alt = insight.title;
     featuredImage.classList.remove("is-hidden");
   } else {
@@ -76,6 +96,7 @@ const renderList = (insights) => {
 };
 
 const updateInsightQuery = (id) => {
+  if (bodyInsightId) return;
   try {
     const url = new URL(window.location.href);
     url.searchParams.set("insight", id);
@@ -134,19 +155,25 @@ scrollButtons.forEach((button) => {
   });
 });
 
-const initialInsightId = getInsightFromQuery();
+const initialInsightId = bodyInsightId || getInsightFromQuery();
 const initialInsight = initialInsightId
   ? INSIGHTS.find((item) => item.id === initialInsightId)
   : null;
-renderFeatured(initialInsight || INSIGHTS[0]);
-if (initialInsight) {
-  updateInsightQuery(initialInsight.id);
+
+if (INSIGHTS.length > 0) {
+  renderFeatured(initialInsight || INSIGHTS[0]);
+  if (!bodyInsightId && initialInsight) {
+    updateInsightQuery(initialInsight.id);
+  }
+  renderList(INSIGHTS);
 }
-renderList(INSIGHTS);
 
 if (featuredShare) {
   featuredShare.addEventListener("click", async () => {
-    const url = window.location.href;
+    const shareId = currentInsightId || (INSIGHTS[0] ? INSIGHTS[0].id : "");
+    if (!shareId) return;
+    const url = `${window.location.origin}/p/${shareId}.html`;
+
     try {
       if (navigator.share) {
         await navigator.share({
