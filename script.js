@@ -6,6 +6,7 @@ const featuredTags = document.getElementById("featured-tags");
 const featuredTitle = document.getElementById("featured-title");
 const featuredExcerpt = document.getElementById("featured-excerpt");
 const featuredBody = document.getElementById("featured-body");
+const featuredImage = document.getElementById("featured-image");
 const featuredCta = document.getElementById("featured-cta");
 const insightList = document.getElementById("insight-list");
 
@@ -15,6 +16,14 @@ const renderFeatured = (insight) => {
   featuredTags.textContent = insight.tags.join(" · ");
   featuredTitle.textContent = insight.title;
   featuredExcerpt.textContent = insight.excerpt;
+  if (insight.image) {
+    featuredImage.src = insight.image;
+    featuredImage.alt = insight.title;
+    featuredImage.classList.remove("is-hidden");
+  } else {
+    featuredImage.removeAttribute("src");
+    featuredImage.classList.add("is-hidden");
+  }
   featuredBody.innerHTML = insight.body.map((paragraph) => `<p>${paragraph}</p>`).join("");
   featuredCta.dataset.state = "collapsed";
   featuredBody.classList.add("is-hidden");
