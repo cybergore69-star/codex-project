@@ -396,3 +396,17 @@ footer {
 #cusdis_thread iframe {
   border-radius: 12px;
 }
+
+/* ===== Cusdis Dark Mode Fix (Stronger) ===== */
+
+#cusdis_thread {
+  background: transparent;
+  color: #e6e6e6;
+  color-scheme: dark;
+}
+
+#cusdis_thread iframe {
+  background: #111;
+  filter: invert(1) hue-rotate(180deg) contrast(1.05) brightness(1.05);
+  border-radius: 12px;
+}
