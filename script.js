@@ -10,6 +10,7 @@ const featuredImage = document.getElementById("featured-image");
 const featuredCta = document.getElementById("featured-cta");
 const featuredShare = document.getElementById("featured-share");
 const cusdisThread = document.getElementById("cusdis_thread");
+const commentsWrap = document.getElementById("comments-wrap");
 const insightList = document.getElementById("insight-list");
 const scrollButtons = document.querySelectorAll("[data-scroll]");
 const bodyInsightId = document.body.dataset.insightId || null;
@@ -56,22 +57,18 @@ function updateMetaTags(insight) {
   setMeta("og:image", toAbsoluteAssetUrl(insight.image));
   setMeta("og:url", shareUrl);
 }
-const showComments = (insight) => {
-  if (!cusdisThread) return;
-  cusdisThread.classList.remove("is-hidden");
-  if (window.CUSDIS) {
-    CUSDIS.renderTo('#cusdis_thread', {
-      appId: 'd1553e79-6dcc-4ea7-b641-ed4566b04fef',
-      pageId: insight.id,
-      pageUrl: window.location.href,
-      pageTitle: insight.title
-    });
-  }
-};
 const hideComments = () => {
-  if (!cusdisThread) return;
-  cusdisThread.classList.add("is-hidden");
+  if (!commentsWrap) return;
+  commentsWrap.classList.add("is-hidden");
+  commentsWrap.classList.remove("comments-visible");
 };
+
+const showComments = () => {
+  if (!commentsWrap) return;
+  commentsWrap.classList.remove("is-hidden");
+  commentsWrap.classList.add("comments-visible");
+};
+
 const renderFeatured = (insight) => {
   currentInsightId = insight.id;
   currentInsight = insight;
@@ -80,6 +77,24 @@ const renderFeatured = (insight) => {
   featuredExcerpt.textContent = insight.excerpt;
   updateMetaTags(insight);
   hideComments();
+
+  if (cusdisThread) {
+    const pageUrl = `${location.origin}/p/${insight.id}.html`;
+    cusdisThread.dataset.pageId = insight.id;
+    cusdisThread.dataset.pageUrl = pageUrl;
+    cusdisThread.dataset.pageTitle = insight.title;
+    if (window.CUSDIS && window.CUSDIS.renderTo) {
+      window.CUSDIS.renderTo('#cusdis_thread', {
+        appId: 'd1553e79-6dcc-4ea7-b641-ed4566b04fef',
+        pageId: insight.id,
+        pageUrl,
+        pageTitle: insight.title
+      });
+    } else if (window.CUSDIS && window.CUSDIS.initial) {
+      window.CUSDIS.initial();
+    }
+  }
+
   if (insight.image) {
     featuredImage.src = toPageAssetPath(insight.image);
     featuredImage.alt = insight.title;
@@ -92,6 +107,7 @@ const renderFeatured = (insight) => {
   featuredCta.dataset.state = "collapsed";
   featuredBody.classList.add("is-hidden");
 };
+
 const renderList = (insights) => {
   insightList.innerHTML = insights
     .map(
@@ -135,9 +151,7 @@ featuredCta.addEventListener("click", () => {
     featuredBody.classList.remove("is-hidden");
     featuredCta.textContent = "Collapse";
     featuredCta.dataset.state = "expanded";
-    if (currentInsight) {
-      showComments(currentInsight);
-    }
+    showComments();
   } else {
     featuredBody.classList.add("is-hidden");
     featuredCta.textContent = "Read Full Article";
@@ -145,6 +159,7 @@ featuredCta.addEventListener("click", () => {
     hideComments();
   }
 });
+
 insightList.addEventListener("click", (event) => {
   const item = event.target.closest(".insight-item");
   if (!item) return;
@@ -152,6 +167,7 @@ insightList.addEventListener("click", (event) => {
   featuredCta.textContent = "Read Full Article";
   featuredCta.dataset.state = "collapsed";
   featuredBody.classList.add("is-hidden");
+  hideComments();
 });
 scrollButtons.forEach((button) => {
   button.addEventListener("click", () => {

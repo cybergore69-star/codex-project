@@ -419,3 +419,76 @@ footer {
 #cusdis_thread button {
   border: 1px solid #ffffff;
 }
+
+/* ===== Premium Article Polish ===== */
+
+#featured-article {
+  border: 1px solid #1f1f1f;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+  padding: 28px;
+  border-radius: 18px;
+}
+
+#featured-article .article-body {
+  max-width: 680px;
+  line-height: 1.75;
+  font-size: clamp(1rem, 1.2vw, 1.1rem);
+}
+
+#featured-article .article-body p + p {
+  margin-top: 18px;
+}
+
+#featured-article #featured-excerpt {
+  border-bottom: 1px solid #1f1f1f;
+  padding-bottom: 16px;
+  margin-bottom: 18px;
+}
+
+#featured-article #featured-cta {
+  margin-top: 18px;
+}
+
+#featured-article {
+  display: grid;
+  gap: 18px;
+}
+
+@media (min-width: 900px) {
+  #featured-article {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.comments-wrap {
+  margin-top: 24px;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 200ms ease, transform 200ms ease;
+}
+
+.comments-wrap.is-hidden {
+  display: none;
+}
+
+.comments-wrap.comments-visible {
+  display: block;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.comments-head h4 {
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 1.4rem;
+  letter-spacing: 0.06em;
+  margin-bottom: 4px;
+}
+
+.comments-head p {
+  color: #bdbdbd;
+  margin-bottom: 16px;
+}
+
+#cusdis_thread {
+  color: #e6e6e6;
+}
