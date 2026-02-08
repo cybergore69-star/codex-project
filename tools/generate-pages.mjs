@@ -17,7 +17,7 @@ const escapeAttr = (value) =>
 
 const setMetaProperty = (html, property, content) => {
   const escaped = escapeAttr(content);
-  const pattern = new RegExp(`<meta\\s+property="${property}"\\s+content="[^"]*"\\s*/?>`);
+  const pattern = new RegExp(`<meta\\s+property="${property}"\\s+content="[^"]*"\\s*\\/?>`);
   if (pattern.test(html)) {
     return html.replace(pattern, `<meta property="${property}" content="${escaped}">`);
   }
@@ -26,7 +26,7 @@ const setMetaProperty = (html, property, content) => {
 
 const setMetaName = (html, name, content) => {
   const escaped = escapeAttr(content);
-  const pattern = new RegExp(`<meta\\s+name="${name}"\\s+content="[^"]*"\\s*/?>`);
+  const pattern = new RegExp(`<meta\\s+name="${name}"\\s+content="[^"]*"\\s*\\/?>`);
   if (pattern.test(html)) {
     return html.replace(pattern, `<meta name="${name}" content="${escaped}">`);
   }
@@ -41,14 +41,12 @@ const setTitle = (html, title) => {
   return html.replace("</head>", `    <title>${escaped}</title>\n  </head>`);
 };
 
-const setCanonical = (html, href) => {
-  const escaped = escapeAttr(href);
-  const pattern = /<link\s+rel="canonical"\s+href="[^"]*"\s*/?>/i;
-  if (pattern.test(html)) {
-    return html.replace(pattern, `<link rel="canonical" href="${escaped}" />`);
-  }
-  return html.replace("</head>", `    <link rel="canonical" href="${escaped}" />\n  </head>`);
-};
+function upsertCanonical(html, canonicalUrl) {
+  const tag = `<link rel="canonical" href="${canonicalUrl}">`;
+  const re = /<link\s+rel=(["'])canonical\1[^>]*>/ig;
+  if (re.test(html)) return html.replace(re, tag);
+  return html.replace(/<\/head>/i, `${tag}\n</head>`);
+}
 
 const setJsonLd = (html, data) => {
   const json = JSON.stringify(data);
@@ -86,7 +84,7 @@ const generateArticlePage = (indexHtml, insight, site) => {
   const defaultDescription = site.defaultDescription || "";
   const imagePath = insight.image || "assets/default.jpg";
   const absoluteImage = `${siteUrl}/${imagePath.replace(/^\//, "")}`;
-  const canonical = `${siteUrl}/${insight.id}.html`;
+  const canonicalUrl = `${siteUrl}/${insight.id}.html`;
   const title = `${insight.title} — ${site.name}`;
   const description = insight.excerpt || defaultDescription;
 
@@ -99,14 +97,14 @@ const generateArticlePage = (indexHtml, insight, site) => {
   page = page.replace(/src="assets\//g, 'src="../assets/');
 
   page = setTitle(page, title);
-  page = setCanonical(page, canonical);
+  page = upsertCanonical(page, canonicalUrl);
   page = setMetaName(page, "description", description);
 
   page = setMetaProperty(page, "og:type", "article");
   page = setMetaProperty(page, "og:title", title);
   page = setMetaProperty(page, "og:description", description);
   page = setMetaProperty(page, "og:image", absoluteImage);
-  page = setMetaProperty(page, "og:url", canonical);
+  page = setMetaProperty(page, "og:url", canonicalUrl);
 
   page = setMetaName(page, "twitter:card", "summary_large_image");
   page = setMetaName(page, "twitter:title", title);
@@ -121,8 +119,8 @@ const generateArticlePage = (indexHtml, insight, site) => {
     image: [absoluteImage],
     author: { "@type": "Person", name: site.author.name, url: site.author.url },
     publisher: { "@type": "Organization", name: site.name },
-    mainEntityOfPage: canonical,
-    url: canonical
+    mainEntityOfPage: canonicalUrl,
+    url: canonicalUrl
   };
 
   page = setJsonLd(page, ld);
