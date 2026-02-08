@@ -348,3 +348,36 @@ footer {
     max-height: 220px;
   }
 }
+
+/* ===== Cusdis Dark Theme Override ===== */
+
+#cusdis_thread {
+  margin-top: 80px;
+  padding-top: 40px;
+  border-top: 1px solid #222;
+  color: #e6e6e6;
+}
+
+#cusdis_thread textarea,
+#cusdis_thread input {
+  background-color: #111;
+  color: #fff;
+  border: 1px solid #333;
+}
+
+#cusdis_thread .comment-content {
+  color: #e6e6e6;
+}
+
+#cusdis_thread .comment-author {
+  color: #ffffff;
+}
+
+#cusdis_thread .comment-time {
+  color: #aaaaaa;
+}
+
+#cusdis_thread button {
+  background: #ffffff;
+  color: #000;
+}
