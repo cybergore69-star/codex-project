@@ -63,10 +63,28 @@ const hideComments = () => {
   commentsWrap.classList.remove("comments-visible");
 };
 
-const showComments = () => {
+const showComments = (insight) => {
   if (!commentsWrap) return;
+  const activeInsight = insight || currentInsight;
+  if (!activeInsight) return;
   commentsWrap.classList.remove("is-hidden");
   commentsWrap.classList.add("comments-visible");
+  if (cusdisThread) {
+    const pageUrl = `${location.origin}/p/${activeInsight.id}.html`;
+    cusdisThread.dataset.pageId = activeInsight.id;
+    cusdisThread.dataset.pageUrl = pageUrl;
+    cusdisThread.dataset.pageTitle = activeInsight.title;
+  }
+  if (window.CUSDIS && window.CUSDIS.renderTo) {
+    window.CUSDIS.renderTo('#cusdis_thread', {
+      appId: 'd1553e79-6dcc-4ea7-b641-ed4566b04fef',
+      pageId: activeInsight.id,
+      pageUrl: `${location.origin}/p/${activeInsight.id}.html`,
+      pageTitle: activeInsight.title
+    });
+  } else if (window.CUSDIS && window.CUSDIS.initial) {
+    window.CUSDIS.initial();
+  }
 };
 
 const renderFeatured = (insight) => {
@@ -83,16 +101,6 @@ const renderFeatured = (insight) => {
     cusdisThread.dataset.pageId = insight.id;
     cusdisThread.dataset.pageUrl = pageUrl;
     cusdisThread.dataset.pageTitle = insight.title;
-    if (window.CUSDIS && window.CUSDIS.renderTo) {
-      window.CUSDIS.renderTo('#cusdis_thread', {
-        appId: 'd1553e79-6dcc-4ea7-b641-ed4566b04fef',
-        pageId: insight.id,
-        pageUrl,
-        pageTitle: insight.title
-      });
-    } else if (window.CUSDIS && window.CUSDIS.initial) {
-      window.CUSDIS.initial();
-    }
   }
 
   if (insight.image) {
@@ -107,6 +115,7 @@ const renderFeatured = (insight) => {
   featuredCta.dataset.state = "collapsed";
   featuredBody.classList.add("is-hidden");
 };
+
 
 const renderList = (insights) => {
   insightList.innerHTML = insights
@@ -151,7 +160,7 @@ featuredCta.addEventListener("click", () => {
     featuredBody.classList.remove("is-hidden");
     featuredCta.textContent = "Collapse";
     featuredCta.dataset.state = "expanded";
-    showComments();
+    showComments(currentInsight);
   } else {
     featuredBody.classList.add("is-hidden");
     featuredCta.textContent = "Read Full Article";
