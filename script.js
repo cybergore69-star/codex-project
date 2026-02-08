@@ -10,6 +10,7 @@ const featuredBody = document.getElementById("featured-body");
 const featuredImage = document.getElementById("featured-image");
 const featuredCta = document.getElementById("featured-cta");
 const featuredShare = document.getElementById("featured-share");
+const cusdisThread = document.getElementById("cusdis_thread");
 const insightList = document.getElementById("insight-list");
 
 const scrollButtons = document.querySelectorAll("[data-scroll]");
@@ -68,6 +69,16 @@ const renderFeatured = (insight) => {
   featuredTitle.textContent = insight.title;
   featuredExcerpt.textContent = insight.excerpt;
   updateMetaTags(insight);
+
+  if (cusdisThread) {
+    const pageUrl = `${window.location.origin}/p/${insight.id}.html`;
+    cusdisThread.dataset.pageId = insight.id;
+    cusdisThread.dataset.pageUrl = pageUrl;
+    cusdisThread.dataset.pageTitle = insight.title;
+    if (window.CUSDIS && window.CUSDIS.renderTo) {
+      window.CUSDIS.renderTo(cusdisThread);
+    }
+  }
 
   if (insight.image) {
     featuredImage.src = toPageAssetPath(insight.image);
