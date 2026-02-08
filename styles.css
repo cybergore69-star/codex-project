@@ -410,3 +410,12 @@ footer {
   filter: invert(1) hue-rotate(180deg) contrast(1.05) brightness(1.05);
   border-radius: 12px;
 }
+
+#cusdis_thread textarea,
+#cusdis_thread input {
+  border: 1px solid #ffffff;
+}
+
+#cusdis_thread button {
+  border: 1px solid #ffffff;
+}
