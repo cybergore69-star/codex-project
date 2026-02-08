@@ -43,7 +43,7 @@ const setTitle = (html, title) => {
 
 const setCanonical = (html, href) => {
   const escaped = escapeAttr(href);
-  const pattern = /<link\\s+rel="canonical"\\s+href="[^"]*"\\s*\\/?>/;
+  const pattern = /<link\s+rel="canonical"\s+href="[^"]*"\s*/?>/i;
   if (pattern.test(html)) {
     return html.replace(pattern, `<link rel="canonical" href="${escaped}" />`);
   }
