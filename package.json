@@ -3,6 +3,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build:pages": "node tools/generate-pages.mjs"
+    "build:pages": "node tools/generate-pages.mjs",
+    "build": "node generate-pages.mjs"
   }
 }

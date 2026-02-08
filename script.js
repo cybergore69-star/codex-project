@@ -40,6 +40,99 @@ const parseMarkdown = (text) => {
   const strongText = text.replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>");
   return `<p>${strongText}</p>`;
 };
+
+const slugify = (text) => {
+  if (!text) return "";
+  return text
+    .toString()
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9\s-]/g, "")
+    .replace(/\s+/g, "-")
+    .replace(/-+/g, "-");
+};
+
+const safeText = (text) => (text ? text.toString().trim() : "");
+
+const setMeta = (attr, key, value) => {
+  const selector = `meta[${attr}="${key}"]`;
+  let el = document.querySelector(selector);
+  if (!el) {
+    el = document.createElement("meta");
+    el.setAttribute(attr, key);
+    document.head.appendChild(el);
+  }
+  el.setAttribute("content", value);
+};
+
+const updateSEO = (insight) => {
+  const site = window.SITE || {};
+  const siteName = site.name || "Rebel Insight";
+  const siteUrl = site.url || window.location.origin;
+  const defaultDescription = site.defaultDescription || "";
+  const title = insight && insight.title ? `${insight.title} — ${siteName}` : siteName;
+  const description = insight && insight.excerpt ? safeText(insight.excerpt) : defaultDescription;
+  const canonical = insight && insight.id ? `${siteUrl}/${insight.id}.html` : `${siteUrl}/`;
+  const imageUrl = insight && insight.image
+    ? `${siteUrl}/${insight.image.replace(/^\//, "")}`
+    : `${siteUrl}/assets/default.jpg`;
+
+  document.title = title;
+
+  // standard
+  let desc = document.querySelector('meta[name="description"]');
+  if (!desc) {
+    desc = document.createElement("meta");
+    desc.setAttribute("name", "description");
+    document.head.appendChild(desc);
+  }
+  desc.setAttribute("content", description);
+
+  let canonicalEl = document.querySelector('link[rel="canonical"]');
+  if (!canonicalEl) {
+    canonicalEl = document.createElement("link");
+    canonicalEl.setAttribute("rel", "canonical");
+    document.head.appendChild(canonicalEl);
+  }
+  canonicalEl.setAttribute("href", canonical);
+
+  // OpenGraph
+  setMeta("property", "og:type", "article");
+  setMeta("property", "og:title", title);
+  setMeta("property", "og:description", description);
+  setMeta("property", "og:image", imageUrl);
+  setMeta("property", "og:url", canonical);
+
+  // Twitter
+  setMeta("name", "twitter:card", "summary_large_image");
+  setMeta("name", "twitter:title", title);
+  setMeta("name", "twitter:description", description);
+  setMeta("name", "twitter:image", imageUrl);
+
+  // JSON-LD
+  const ld = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: insight && insight.title ? insight.title : siteName,
+    description,
+    image: insight && insight.image ? [imageUrl] : undefined,
+    author: site.author
+      ? { "@type": "Person", name: site.author.name, url: site.author.url }
+      : undefined,
+    publisher: { "@type": "Organization", name: siteName },
+    mainEntityOfPage: canonical,
+    url: canonical
+  };
+
+  const jsonLd = document.getElementById("ld-json") || document.createElement("script");
+  jsonLd.id = "ld-json";
+  jsonLd.type = "application/ld+json";
+  jsonLd.textContent = JSON.stringify(ld, (k, v) => (v === undefined ? undefined : v));
+  if (!jsonLd.parentNode) {
+    document.head.appendChild(jsonLd);
+  }
+};
+
 function updateMetaTags(insight) {
   const setMeta = (property, content) => {
     let el = document.querySelector(`meta[property="${property}"]`);
@@ -94,6 +187,7 @@ const renderFeatured = (insight) => {
   featuredTitle.textContent = insight.title;
   featuredExcerpt.textContent = insight.excerpt;
   updateMetaTags(insight);
+  updateSEO(insight);
   hideComments();
 
   if (cusdisThread) {
