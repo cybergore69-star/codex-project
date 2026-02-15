@@ -3,7 +3,7 @@ window.INSIGHTS = [
     id: "iran-2026-kebangkitan",
     title: "Iran 2026: Kebangkitan Rakyat dan Kejatuhan Legitimasi",
     excerpt: "Kadang-kadang sebuah rejim tidak runtuh kerana senjata. Ia runtuh kerana rakyat berhenti mempercayainya.",
-    image: "assets/uprising.jpg",
+    image: "assets/uprising-og.jpg",
     publishedAt: "2026-02-15",
     tags: ["Geopolitics", "Economy", "Power", "Society"],
     body: [
