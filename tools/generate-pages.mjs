@@ -84,7 +84,7 @@ const generateArticlePage = (indexHtml, insight, site) => {
   const defaultDescription = site.defaultDescription || "";
   const imagePath = insight.image || "assets/default.jpg";
   const absoluteImage = `${siteUrl}/${imagePath.replace(/^\//, "")}`;
-  const canonicalUrl = `${siteUrl}/${insight.id}.html`;
+  const canonicalUrl = `${siteUrl}/p/${insight.id}.html`;
   const title = `${insight.title} — ${site.name}`;
   const description = insight.excerpt || defaultDescription;
 
@@ -144,7 +144,7 @@ const generateSitemap = (siteUrl, insights) => {
   const today = new Date().toISOString().split("T")[0];
   const urls = [
     `${siteUrl}/`,
-    ...insights.map((insight) => `${siteUrl}/${insight.id}.html`)
+    ...insights.map((insight) => `${siteUrl}/p/${insight.id}.html`)
   ];
   const items = urls
     .map((loc) => `  <url><loc>${loc}</loc><lastmod>${today}</lastmod></url>`)
@@ -155,7 +155,7 @@ const generateSitemap = (siteUrl, insights) => {
 const generateRss = (siteUrl, site, insights) => {
   const items = insights
     .map((insight) => {
-      const link = `${siteUrl}/${insight.id}.html`;
+      const link = `${siteUrl}/p/${insight.id}.html`;
       return `  <item>\n    <title>${escapeAttr(insight.title)}</title>\n    <link>${link}</link>\n    <guid>${link}</guid>\n    <description>${escapeAttr(insight.excerpt || "")}</description>\n  </item>`;
     })
     .join("\n");
