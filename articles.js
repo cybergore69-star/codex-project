@@ -67,7 +67,7 @@ window.INSIGHTS = [
       "Yang menentukan bukan kekuatan senjata.",
       "Tetapi kekuatan legitimasi.",
       "Dan legitimasi, apabila hilang, jarang kembali.",
-      "Tonton video berkaitan: <a href="https://youtu.be/voQaxc5lpVY?si=l4uDLR4O111e48ux" target="_blank" rel="noopener noreferrer">https://youtu.be/voQaxc5lpVY?si=l4uDLR4O111e48ux</a>",
+      "Tonton video berkaitan: <a href='https://youtu.be/voQaxc5lpVY?si=l4uDLR4O111e48ux' target='_blank' rel='noopener noreferrer'>Tonton di YouTube</a>",
       "Kalau tulisan ini membuat kau berfikir, simpan dan kongsi. Kerana memahami kuasa adalah langkah pertama untuk memahami dunia."
     ]
   },
