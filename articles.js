@@ -68,6 +68,10 @@ window.INSIGHTS = [
       "Tetapi kekuatan legitimasi.",
       "Dan legitimasi, apabila hilang, jarang kembali.",
       "Tonton video berkaitan: <a href='https://youtu.be/voQaxc5lpVY?si=l4uDLR4O111e48ux' target='_blank' rel='noopener noreferrer'>Tonton di YouTube</a>",
+      "---",
+      "### Tonton video (dalam halaman)",
+      "<div class='yt-embed'><iframe src='https://www.youtube.com/embed/voQaxc5lpVY' title='YouTube video player' frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share' allowfullscreen></iframe></div>",
+      "---",
       "Kalau tulisan ini membuat kau berfikir, simpan dan kongsi. Kerana memahami kuasa adalah langkah pertama untuk memahami dunia."
     ]
   },
