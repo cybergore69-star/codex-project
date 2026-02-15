@@ -5,6 +5,7 @@ const INSIGHTS = window.INSIGHTS || [];
 const featuredTags = document.getElementById("featured-tags");
 const featuredTitle = document.getElementById("featured-title");
 const featuredExcerpt = document.getElementById("featured-excerpt");
+const featuredDate = document.getElementById("featured-date");
 const featuredBody = document.getElementById("featured-body");
 const featuredImage = document.getElementById("featured-image");
 const featuredCta = document.getElementById("featured-cta");
@@ -29,6 +30,17 @@ const toAbsoluteAssetUrl = (assetPath) => {
   const normalized = relativePath.replace(/^\.\//, "").replace(/^\//, "");
   return `${window.location.origin}/${normalized}`;
 };
+const formatPublishedDate = (value) => {
+  if (!value) return "";
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return "";
+  return new Intl.DateTimeFormat("ms-MY", {
+    day: "numeric",
+    month: "long",
+    year: "numeric"
+  }).format(date);
+};
+
 const parseMarkdown = (text) => {
   if (!text) return "";
   if (text.startsWith("### ")) {
@@ -186,6 +198,16 @@ const renderFeatured = (insight) => {
   featuredTags.textContent = insight.tags.join(" · ");
   featuredTitle.textContent = insight.title;
   featuredExcerpt.textContent = insight.excerpt;
+  if (featuredDate) {
+    const published = formatPublishedDate(insight.publishedAt);
+    if (published) {
+      featuredDate.textContent = `Diterbitkan: ${published}`;
+      featuredDate.classList.remove("is-hidden");
+    } else {
+      featuredDate.textContent = "";
+      featuredDate.classList.add("is-hidden");
+    }
+  }
   updateMetaTags(insight);
   updateSEO(insight);
   hideComments();
