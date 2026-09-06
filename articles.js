@@ -1,6 +1,7 @@
 window.INSIGHTS = [
 {
   "id": "lord-of-the-flies-bila-fear-mengalahkan-reason",
+  "image": "assets/lord-of-the-flies.png",
   "title": "LORD OF THE FLIES: BILA FEAR MENGALAHKAN REASON",
   "excerpt": "Ralph memimpin melalui consent. Jack memimpin melalui fear. Catatan tentang kuasa, demokrasi dan betapa nipisnya lapisan civilised society.",
   "publishedAt": "2026-09-06",
