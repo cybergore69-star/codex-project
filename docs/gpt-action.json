@@ -1,0 +1,121 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Rebel Insight Publisher",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://afdzalsalimi.my"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  },
+  "security": [
+    {
+      "bearerAuth": []
+    }
+  ],
+  "paths": {
+    "/api/publish": {
+      "post": {
+        "operationId": "publishInsight",
+        "summary": "Preview or publish a new article after explicit user approval.",
+        "x-openai-isConsequential": true,
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "mode",
+                  "article"
+                ],
+                "properties": {
+                  "mode": {
+                    "type": "string",
+                    "enum": [
+                      "preview",
+                      "publish"
+                    ]
+                  },
+                  "article": {
+                    "type": "object",
+                    "required": [
+                      "id",
+                      "title",
+                      "excerpt",
+                      "tags",
+                      "body"
+                    ],
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+                      },
+                      "title": {
+                        "type": "string"
+                      },
+                      "excerpt": {
+                        "type": "string"
+                      },
+                      "tags": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "body": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        },
+                        "description": "Complete Malay paragraphs. Supports **bold**, ## and ### headings. No HTML."
+                      }
+                    }
+                  },
+                  "confirmationHash": {
+                    "type": "string",
+                    "description": "Exact hash returned by preview, required for publish."
+                  },
+                  "openaiFileIdRefs": {
+                    "type": "array",
+                    "maxItems": 1,
+                    "items": {
+                      "type": "string"
+                    },
+                    "description": "Zero or one PNG/JPEG cover from the conversation, under 4 MB. Send the same image for preview and publish."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Preview or GitHub save result; deployment may still be pending."
+          },
+          "400": {
+            "description": "Invalid input or changed preview."
+          },
+          "401": {
+            "description": "Unauthorized."
+          },
+          "409": {
+            "description": "Existing article or concurrent write; retry unchanged input."
+          },
+          "503": {
+            "description": "Server configuration missing."
+          }
+        }
+      }
+    }
+  }
+}
