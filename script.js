@@ -43,6 +43,7 @@ const formatPublishedDate = (value) => {
 
 const parseMarkdown = (text) => {
   if (!text) return "";
+  if (text.startsWith('<blockquote class="pull-quote">')) return text;
   if (text.startsWith("### ")) {
     return `<h3>${text.slice(4)}</h3>`;
   }
@@ -271,6 +272,10 @@ const setFeaturedById = (id) => {
   updateInsightQuery(insight.id);
 };
 featuredCta.addEventListener("click", () => {
+  if (currentInsight && currentInsight.fullPage && bodyInsightId !== currentInsight.id) {
+    window.location.assign(`/p/${currentInsight.id}.html`);
+    return;
+  }
   const isCollapsed = featuredCta.dataset.state === "collapsed";
   if (isCollapsed) {
     featuredBody.classList.remove("is-hidden");
@@ -313,6 +318,7 @@ if (INSIGHTS.length > 0) {
     updateInsightQuery(initialInsight.id);
   }
   renderList(INSIGHTS);
+  if (bodyInsightId && currentInsight.fullPage) featuredCta.click();
 }
 if (featuredShare) {
   featuredShare.addEventListener("click", async () => {

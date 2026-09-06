@@ -508,3 +508,17 @@ footer {
   width: 100%;
   height: 100%;
 }
+
+/* Editorial pull quote for full articles. */
+#featured-article .article-body .pull-quote {
+  margin: 32px 0;
+  padding: clamp(18px, 4vw, 32px);
+  background: var(--neon, #c8ff2e);
+  border-left: 8px solid var(--red, #ff2d2d);
+  box-shadow: 6px 6px 0 var(--pink, #ff5ca9);
+  font-family: "Permanent Marker", cursive;
+  font-size: clamp(1.4rem, 4vw, 2.2rem);
+  line-height: 1.4;
+}
+#featured-article .article-body .pull-quote p,
+#featured-article .article-body .pull-quote strong { color: #0b0b0b; }
